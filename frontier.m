@@ -10,6 +10,11 @@ sds = [23, 45, 37];
 % Returns
 rs = [0.02, 0.05, 0.04];
 
+%%
+
+% Portfolio weights.
+w = [0.2, 0.3, 0.5];
+
 % Swedish risk-free rate. Fetched 04-09-2021 from
 % https://www.statista.com/statistics/885803/average-risk-free-rate-sweden/
 rf = 0.009;
@@ -24,6 +29,9 @@ r_p = 0;
 
 % SD of portfolio.
 sd_p = 0;
+
+% Tangency portfolio (its weights).
+W_T = [];
 
 % Sharpe ratio of portfolio.
 % QF L2S30.

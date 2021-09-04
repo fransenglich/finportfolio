@@ -1,7 +1,8 @@
 
-% TODO A4
 \documentclass[A4]{article}
 
+\usepackage{float}
+\usepackage{amsmath}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[bookmarks=true]{hyperref}
@@ -76,29 +77,61 @@ This is the broad picture:
 
 \section{Investment Objects}
 
-\begin{center}
-\begin{tabular}{ |l|l|l| }
-    \hline
-    \href{https://www.avanza.se/aktier/omc-aktien.html/338588/creades-a}{Creades A} & CRED A & Investment company \\
-    \href{https://www.avanza.se/aktier/om-aktien.html/5245/industrivarden-c}{Industrivärden C} & INDU C & Investment company \\
-    \href{https://www.avanza.se/fonder/om-fonden.html/929/seb-europafond-smabolag}{SEB Europafond Småbolag} & - & Fund \\
-    \href{https://www.avanza.se/fonder/om-fonden.html/70331/ms-invf-us-growth-a-usd}{MS INVF US Growth A USD} & - & Fund \\
-    \hline
-\end{tabular}
-\end{center}
+\begin{table}[H]
+    \label{table_assets}
+    \begin{center}
+    \begin{tabular}{ |l|l|l|l| }
+        \hline
+        Name & Short name & Type & Total Fee (for funds) \\
+        \hline
+        \href{https://www.avanza.se/aktier/om-aktien.html/338588/creades-a}{Creades A} & CRED A & Investment company & - \\
+        \href{https://www.avanza.se/aktier/om-aktien.html/5245/industrivarden-c}{Industrivärden C} & INDU C & Investment company & - \\
+        \href{https://www.avanza.se/fonder/om-fonden.html/929/seb-europafond-smabolag}{SEB Europafond Småbolag} & - & Fund & 2.01\% \\
+        \href{https://www.avanza.se/fonder/om-fonden.html/70331/ms-invf-us-growth-a-usd}{MS INVF US Growth A USD} & - & Fund & 1.80\% \\
+        \hline
+    \end{tabular}
+    \end{center}
+    \caption{Selected assets for the portfolio.}
+\end{table}
 
-In short, my very shallow approach to this is that it achieves diversification across USA, Europe and Sweden, and is high return/risk and therefore matches my objectives.
+In short, according to my very shallow approach to this, I say it achieves diversification across USA, Europe and Sweden, and is high return/risk. Therefore it matches my objectives.
 
 \section{A Modern Portfolio Theory Analysis}
 
-The objective is to maximise the portfolio's Sharpe ratio and acquire informational key figures. Therefore I will compute the portfolio's:
+The objective is to maximise the portfolio's Sharpe ratio and acquire informational key figures. That is, the tangency portfolio is of interest. Therefore I will compute the portfolio's:
 
 \begin{itemize}
-    \item Mean/Variance-efficient asset weights
+    \item Mean-variance efficient asset weights
+    \item Efficient frontier
     \item Expected return
-    \item Standard deviation.
+    \item Standard deviation
+    \item Sharpe ratio.
 % VaR?
 \end{itemize}
+
+\subsection{Mean-variance Efficient Frontier}
+
+Mathematically, the problem is:
+
+\begin{equation*}
+    \max_{w} w'\mu
+\end{equation*}
+
+\(w\) is a \(N\times1\) vector of asset weights, where \(N\) is the number of assets. $\mu$ is a \(N\times1\) vector of expected returns. The solution can be found in the mean-variance efficient frontier, which is:
+
+\begin{equation*}
+    \bar{u}_p = \frac{A}{C} + \frac{1}{C} \sqrt{(C\sigma^2_p - 1)(BC - A^2)},
+\end{equation*}
+
+where
+
+\begin{align*}
+    A &= \mu'\Sigma^{-1}\iota  \\
+    B &= \mu'\Sigma^{-1}\mu    \\
+    C &= \iota\Sigma^{-1}\iota \\
+\end{align*}
+
+$\Sigma$ is an \(N\times N\) variance-covariance matrix of returns, $\iota$ an \(N\times 1\) vector of ones.
 
 \section{Remaining Questions}
 
