@@ -19,7 +19,7 @@ rng('default');
 % Array of returns, columns are assets.
 rs = [];
 
-% Generate the returns.
+% Randomly generate the returns.
 for i = 1:nassets
     new = normrnd(ers(i), g_sd(i), [n_obs, 1]);
     rs = cat(2, rs, new);
@@ -27,10 +27,11 @@ end
 
 mu = mean(rs)';
 
-% The standard deviations
-%sds = [23, 45, 37];
+% Covariance of returns.
+Sigma = cov(rs);
 
-% Returns
+% SD
+sigma = std(rs)';
 
 %%
 % Compute the optimal weights through maximisation.
@@ -38,19 +39,54 @@ mu = mean(rs)';
 f = @(x) sqrt(x' * Sigma * x) * 100;
 
 % Our starting values for fmincon(). It is the assets equally weighted.
-w_0 = repmat(1 / n_obs, n_obs, 1);
+w_0 = repmat(1 / nassets, nassets, 1);
 
-% Linear equality constraints,
+% Linear equality constraints.
+% TODO understand this.
 C = [ones(1, nassets); mu'];    
 d = [1; 0.015];
 
-w_opt = fmincon(f, w_0, [], [], C, d);
+% Compute our optimal portfolio weights.
+% TODO not currently used.
+w_opt1 = fmincon(f, w_0, [], [], C, d);
 
-% Portfolio weights.
-w = [0.2, 0.3, 0.5];
+%%
+% Draw the MV frontier.
 
-% Covariance of returns.
-Sigma = cov(rs);
+mu_bar = (0 : 0.001 : 0.025)';
+
+%Pre-define a matrix for the weights.
+w_MV = zeros(size(mu_bar,1), nassets);
+
+% Pre-define a matrix for standard deviations.
+sigma_MV = zeros(size(mu_bar, 1), 1);  
+
+for i = 1 : size(mu_bar, 1)  
+    w_opt = fmincon(f, w_0, [], [], C, [1; mu_bar(i)]);    
+
+    % Saving the optimal weights.
+    w_MV(i, :) = w_opt';
+
+    % Saving the corresponding S.D.
+    sigma_MV(i) = sqrt(w_opt' * Sigma * w_opt);
+end
+
+figure;
+
+% The MV frontier.
+plot(sigma_MV, mu_bar);
+
+hold all;
+
+% The original portfolios.
+plot(sigma, mu,'ob');
+
+xlabel('Standard deviation');
+ylabel('Mean');
+
+saveas(gcf, "figures/mv_frontier.eps", 'epsc');
+
+%% Unused stuff.
 
 % Swedish risk-free rate. Fetched 04-09-2021 from
 % https://www.statista.com/statistics/885803/average-risk-free-rate-sweden/

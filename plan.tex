@@ -1,6 +1,6 @@
+\documentclass[a4paper]{article}
 
-\documentclass[A4]{article}
-
+\usepackage{graphicx}
 \usepackage{float}
 \usepackage{amsmath}
 \usepackage[utf8]{inputenc}
@@ -9,9 +9,14 @@
 \usepackage{color}
 \usepackage{listings}
 
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={3.0},
+]{doclicense}
 
 \usepackage{xcolor}
-%New colors defined below
+% New colors defined below.
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -133,6 +138,15 @@ where
 
 $\Sigma$ is an \(N\times N\) variance-covariance matrix of returns, $\iota$ an \(N\times 1\) vector of ones.
 
+The mean-variance frontier for the portfolio is plotted in figure \ref{figure_mv_frontier}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth, keepaspectratio]{figures/mv_frontier.eps}
+    \caption{Mean-variance frontier of portfolio.}
+    \label{figure_mv_frontier}
+\end{figure}
+
 \section{Remaining Questions}
 
 \appendix
@@ -140,5 +154,9 @@ $\Sigma$ is an \(N\times N\) variance-covariance matrix of returns, $\iota$ an \
 \section{Code}
 
 \lstinputlisting[language=Matlab, caption=Matlab code]{frontier.m}
+
+\section{License}
+
+\doclicenseThis
 
 \end{document}
