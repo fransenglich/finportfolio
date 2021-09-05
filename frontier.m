@@ -6,7 +6,7 @@ clear all;
 % 5 assets are made up for now until we have real data from Bloomberg.
 nassets = 5;
 
-% Expected returns
+% Expected returns.
 ers = [2, 5, 3, 6, 7];
 
 % 3 years of daily observations.
@@ -56,7 +56,7 @@ w_opt1 = fmincon(f, w_0, [], [], C, d);
 mu_bar = (0 : 0.001 : 0.025)';
 
 %Pre-define a matrix for the weights.
-w_MV = zeros(size(mu_bar,1), nassets);
+w_MV = zeros(size(mu_bar, 1), nassets);
 
 % Pre-define a matrix for standard deviations.
 sigma_MV = zeros(size(mu_bar, 1), 1);  
@@ -79,7 +79,7 @@ plot(sigma_MV, mu_bar);
 hold all;
 
 % The original portfolios.
-plot(sigma, mu,'ob');
+plot(sigma, mu, 'ob');
 
 xlabel('Standard deviation');
 ylabel('Mean');
