@@ -1,4 +1,5 @@
 
+clear all;
 
 %%
 % The data.
@@ -9,25 +10,41 @@ nassets = 5;
 ers = [2, 5, 3, 6, 7];
 
 % 3 years of daily observations.
-g_nobs = 30 * 12 * 3;
+n_obs = 30 * 12 * 3;
 
 g_sd = [7, 8, 6, 10, 12];
 
 rng('default');
 
+% Array of returns, columns are assets.
 rs = [];
 
+% Generate the returns.
 for i = 1:nassets
-    new = normrnd(ers(i), g_sd(i), [g_nobs, 1]);
+    new = normrnd(ers(i), g_sd(i), [n_obs, 1]);
     rs = cat(2, rs, new);
 end
 
+mu = mean(rs)';
+
 % The standard deviations
-sds = [23, 45, 37];
+%sds = [23, 45, 37];
 
 % Returns
 
 %%
+% Compute the optimal weights through maximisation.
+
+f = @(x) sqrt(x' * Sigma * x) * 100;
+
+% Our starting values for fmincon(). It is the assets equally weighted.
+w_0 = repmat(1 / n_obs, n_obs, 1);
+
+% Linear equality constraints,
+C = [ones(1, nassets); mu'];    
+d = [1; 0.015];
+
+w_opt = fmincon(f, w_0, [], [], C, d);
 
 % Portfolio weights.
 w = [0.2, 0.3, 0.5];
