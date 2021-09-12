@@ -97,6 +97,14 @@ plot(sigma, mu, 'ob');
 xlabel('Standard deviation');
 ylabel('Mean');
 
+%%
+% Add the optimal portfolio to the plot.
+
+opt_mu = w_opt1' * mu;
+opt_sigma = w_opt1' * sigma;
+
+plot(opt_sigma, opt_mu, '+');
+
 saveas(gcf, "figures/mv_frontier.eps", 'epsc');
 
 %% Unused stuff.
