@@ -1,5 +1,6 @@
 
 clear all;
+close all;
 
 %%
 % The data.
@@ -46,9 +47,21 @@ w_0 = repmat(1 / nassets, nassets, 1);
 C = [ones(1, nassets); mu'];    
 d = [1; 0.015];
 
-% Compute our optimal portfolio weights.
-% TODO not currently used.
+%%
+% Compute and write out our optimal portfolio weights.
 w_opt1 = fmincon(f, w_0, [], [], C, d);
+
+fid = fopen('weights.tex','w');
+
+for i = 1:size(w_opt1, 1)
+    fprintf(fid,                    ...
+            '%s & %f & %g \\\\\n',  ...
+            int2str(i),             ...
+            w_opt1(i),              ...
+            round(w_opt1(i) * 100, 0));
+end
+
+fclose(fid);
 
 %%
 % Draw the MV frontier.

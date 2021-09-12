@@ -1,4 +1,6 @@
-\batchmode
+% TODO:
+% * Fix MVE bug
+% * Fix short selling.
 
 \documentclass[a4paper]{article}
 
@@ -148,6 +150,26 @@ The mean-variance frontier for the portfolio is plotted in figure \ref{figure_mv
     \caption{Mean-variance frontier of portfolio.}
     \label{figure_mv_frontier}
 \end{figure}
+
+\section{Optimal Weights}
+
+\begin{table}[H]
+    \begin{center}
+    \begin{tabular}{ |l|l|l| }
+        \hline
+        Asset Name & Weighting & Weighting (\%) \\
+        \hline
+
+        \input{weights.tex}
+
+        \hline
+    \end{tabular}
+    \caption{Optimal weights.}
+    \label{table_optimal_weights}
+    \end{center}
+\end{table}
+
+
 
 \section{Remaining Questions}
 
