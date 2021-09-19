@@ -44,12 +44,12 @@ w_0 = repmat(1 / nassets, nassets, 1);
 
 % Linear equality constraints.
 % TODO understand this.
-C = [ones(1, nassets); mu'];    
-d = [1; 0.015];
+Aeq = [ones(1, nassets); mu']; 
+beq = [1; 0.015]; % TODO why this value?
 
-%%
 % Compute and write out our optimal portfolio weights.
-w_opt1 = fmincon(f, w_0, [], [], C, d);
+% Aeq * x = beq
+w_opt1 = fmincon(f, w_0, [], [], Aeq, beq);
 
 fid = fopen('weights.tex','w');
 
@@ -66,22 +66,23 @@ fclose(fid);
 %%
 % Draw the MV frontier.
 
-mu_bar = (0 : 0.001 : 0.025)';
+% mu_bar = (0 : 0.001 : 0.025)'; % TODO Why this constant?
+mu_bar = 0 : 0.1 : 8;
 
-%Pre-define a matrix for the weights.
+% Pre-define a matrix for the weights.
 w_MV = zeros(size(mu_bar, 1), nassets);
 
 % Pre-define a matrix for standard deviations.
 sigma_MV = zeros(size(mu_bar, 1), 1);  
 
 for i = 1 : size(mu_bar, 1)  
-    w_opt = fmincon(f, w_0, [], [], C, [1; mu_bar(i)]);    
+    w_opt_cand = fmincon(f, w_0, [], [], Aeq, [1; mu_bar(i)]);    
 
     % Saving the optimal weights.
-    w_MV(i, :) = w_opt';
+    w_MV(i, :) = w_opt_cand';
 
     % Saving the corresponding S.D.
-    sigma_MV(i) = sqrt(w_opt' * Sigma * w_opt);
+    sigma_MV(i) = sqrt(w_opt_cand' * Sigma * w_opt_cand);
 end
 
 figure;
