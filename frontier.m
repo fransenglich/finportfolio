@@ -5,7 +5,7 @@ close all;
 %%
 % The data.
 % 5 assets are made up for now until we have real data from Bloomberg.
-nassets = 5;
+nassets = 5; % = size(mu, 1);
 
 % Expected returns.
 ers = [2, 5, 3, 6, 7];
@@ -18,21 +18,35 @@ g_sd = [7, 8, 6, 10, 12];
 rng('default');
 
 % Array of returns, columns are assets.
-rs = [];
+mktret = [];
+
+ret = [];
 
 % Randomly generate the returns.
 for i = 1:nassets
     new = normrnd(ers(i), g_sd(i), [n_obs, 1]);
-    rs = cat(2, rs, new);
+    ret = cat(2, ret, new);
 end
 
-mu = mean(rs)';
+% ------------- FOREIGN ----------------------------
+%load data_Matlab1          %load data
+
+%Pick a subperiod and a subset of the portfolios
+%index_date=date>=198001 & date<=201512;
+%index_portfolio=[3,20,2,14,17];
+%ret=ret(index_date,index_portfolio);
+%mktret=mktret(index_date);
+% -------------------------------------------------------
+
+mu = mean(ret)';
+
+sigma = std(ret)';
+
+correl = corr(ret);
 
 % Covariance of returns.
-Sigma = cov(rs);
+Sigma = diag(sigma) * correl * diag(sigma);
 
-% SD
-sigma = std(rs)';
 
 %%
 % Compute the optimal weights through maximisation.
@@ -67,7 +81,8 @@ fclose(fid);
 % Draw the MV frontier.
 
 % mu_bar = (0 : 0.001 : 0.025)'; % TODO Why this constant?
-mu_bar = 0 : 0.1 : 8;
+mu_bar = (0 : 0.1 : 8)';
+%mu_bar = (0:0.001:0.025)';
 
 % Pre-define a matrix for the weights.
 w_MV = zeros(size(mu_bar, 1), nassets);
