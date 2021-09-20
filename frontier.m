@@ -39,9 +39,7 @@ end
 
 %% Basic paramaters.
 mu = mean(ret)';
-
 sigma = std(ret)';
-
 correl = corr(ret);
 
 % Covariance of returns.
