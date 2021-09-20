@@ -61,9 +61,15 @@ w_0 = repmat(1 / nassets, nassets, 1);
 Aeq = [ones(1, nassets); mu']; 
 beq = [1; 0.015]; % TODO why this value?
 
+Aeq = ones(1, nassets);
+beq = 1;
+
+% We do this because we cannot short.
+noshort = zeros(nassets, 1);
+
 % Compute and write out our optimal portfolio weights.
 % Aeq * x = beq
-w_opt1 = fmincon(f, w_0, [], [], Aeq, beq);
+w_opt1 = fmincon(f, w_0, [], [], Aeq, beq, noshort, []);
 
 fid = fopen('weights.tex','w');
 
@@ -88,6 +94,8 @@ w_MV = zeros(size(mu_bar, 1), nassets);
 
 % Pre-define a matrix for standard deviations.
 sigma_MV = zeros(size(mu_bar, 1), 1);  
+
+Aeq = [ones(1, nassets); mu']; 
 
 for i = 1 : size(mu_bar, 1)  
     w_opt_cand = fmincon(f, w_0, [], [], Aeq, [1; mu_bar(i)]);    
