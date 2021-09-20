@@ -63,16 +63,16 @@ noshort = zeros(nassets, 1);
 
 % Compute and write out our optimal portfolio weights.
 % Aeq * x = beq
-w_opt1 = fmincon(f, w_0, [], [], Aeq, beq, noshort, []);
+w_opt = fmincon(f, w_0, [], [], Aeq, beq, noshort, []);
 
-fid = fopen('generated_weights.tex','w');
+fid = fopen('generated_weights.tex', 'w');
 
-for i = 1:size(w_opt1, 1)
+for i = 1:size(w_opt, 1)
     fprintf(fid,                    ...
             '%s & %f & %g \\\\\n',  ...
             int2str(i),             ...
-            w_opt1(i),              ...
-            round(w_opt1(i) * 100, 0));
+            w_opt(i),               ...
+            round(w_opt(i) * 100, 0));
 end
 
 fclose(fid);
@@ -115,8 +115,8 @@ ylabel('Mean');
 
 %% Add the optimal portfolio to the plot.
 
-opt_mu = w_opt1' * mu;
-opt_sigma = w_opt1' * sigma;
+opt_mu = w_opt' * mu;
+opt_sigma = w_opt' * sigma;
 
 plot(opt_sigma, opt_mu, '+');
 
