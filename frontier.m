@@ -87,9 +87,10 @@ w_MV = zeros(size(mu_bar, 1), nassets);
 sigma_MV = zeros(size(mu_bar, 1), 1);  
 
 Aeq = [ones(1, nassets); mu']; 
+beq = [1; mu_bar(i)];
 
 for i = 1 : size(mu_bar, 1)  
-    w_opt_cand = fmincon(f, w_0, [], [], Aeq, [1; mu_bar(i)]);    
+    w_opt_cand = fmincon(f, w_0, [], [], Aeq, beq);    
 
     % Saving the optimal weights.
     w_MV(i, :) = w_opt_cand';
