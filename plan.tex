@@ -1,5 +1,7 @@
 % TODO:
 % * Fix plotting of optimal portfolio.
+% * Document that mean/variance is historical and how much.
+% * Discuss that MVE is outperformed by simple weights. Reference to Adam.
 % * Make it solid. Understand and check it.
 
 \documentclass[a4paper]{article}
@@ -153,7 +155,11 @@ The mean-variance frontier for the portfolio is plotted in figure \ref{figure_mv
 
 \section{Optimal Weights}
 
-The optimal weights of the assets in the portfolio are found in table \ref{table_optimal_weights}. The optimal weights may involve shorting, but due to the bank not allowing this, the optimisation has been constrained to not include shorting.
+The definition of optimal weights is those that give maximum return. Another definition could have been that which leads to minimum variance, that is, catering to risk aversion.
+
+The theoretically optimal weights may involve shorting, but due to the bank not allowing this and that simplicity is preferred, the optimisation has been constrained to not include shorting.
+
+The optimal weights of the assets in the portfolio are found in table \ref{table_optimal_weights}.
 
 \begin{table}[H]
     \begin{center}
