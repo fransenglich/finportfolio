@@ -6,3 +6,6 @@ texput.log
 .plan.tex.swp
 .~lock.plan.odt#
 frontier.m~
+generated_mv_frontier-eps-converted-to.pdf
+generated_mv_frontier.eps
+generated_weights.tex

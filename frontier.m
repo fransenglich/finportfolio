@@ -71,7 +71,7 @@ noshort = zeros(nassets, 1);
 % Aeq * x = beq
 w_opt1 = fmincon(f, w_0, [], [], Aeq, beq, noshort, []);
 
-fid = fopen('weights.tex','w');
+fid = fopen('generated_weights.tex','w');
 
 for i = 1:size(w_opt1, 1)
     fprintf(fid,                    ...
@@ -128,7 +128,7 @@ opt_sigma = w_opt1' * sigma;
 
 plot(opt_sigma, opt_mu, '+');
 
-saveas(gcf, "figures/mv_frontier.eps", 'epsc');
+saveas(gcf, "generated_mv_frontier.eps", 'epsc');
 
 %% Unused stuff.
 
