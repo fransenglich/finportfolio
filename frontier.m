@@ -55,10 +55,6 @@ f = @(x) sqrt(x' * Sigma * x) * 100;
 w_0 = repmat(1 / nassets, nassets, 1);
 
 % Linear equality constraints.
-% TODO understand this.
-Aeq = [ones(1, nassets); mu']; 
-beq = [1; 0.015]; % TODO why this value?
-
 Aeq = ones(1, nassets);
 beq = 1;
 
