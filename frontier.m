@@ -2,8 +2,7 @@
 clear all;
 close all;
 
-%%
-% The data.
+%% The data.
 % 5 assets are made up for now until we have real data from Bloomberg.
 nassets = 5; % = size(mu, 1);
 
@@ -28,7 +27,7 @@ for i = 1:nassets
     ret = cat(2, ret, new);
 end
 
-% ------------- FOREIGN ----------------------------
+%% ------------- FOREIGN ----------------------------
 %load data_Matlab1          %load data
 
 %Pick a subperiod and a subset of the portfolios
@@ -38,6 +37,7 @@ end
 %mktret=mktret(index_date);
 % -------------------------------------------------------
 
+%% Basic paramaters.
 mu = mean(ret)';
 
 sigma = std(ret)';
@@ -47,9 +47,7 @@ correl = corr(ret);
 % Covariance of returns.
 Sigma = diag(sigma) * correl * diag(sigma);
 
-
-%%
-% Compute the optimal weights through maximisation.
+%% Compute the optimal weights through maximisation.
 
 f = @(x) sqrt(x' * Sigma * x) * 100;
 
@@ -83,8 +81,7 @@ end
 
 fclose(fid);
 
-%%
-% Draw the MV frontier.
+%% Draw the MV frontier.
 
 % This is the scale of the Y-axis.
 mu_bar = (0 : 0.1 : round(max(mu) * 1.2))';
@@ -120,8 +117,7 @@ plot(sigma, mu, 'ob');
 xlabel('Standard deviation');
 ylabel('Mean');
 
-%%
-% Add the optimal portfolio to the plot.
+%% Add the optimal portfolio to the plot.
 
 opt_mu = w_opt1' * mu;
 opt_sigma = w_opt1' * sigma;
