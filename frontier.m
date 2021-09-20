@@ -59,11 +59,11 @@ Aeq = ones(1, nassets);
 beq = 1;
 
 % We do this because we cannot short.
-noshort = zeros(nassets, 1);
+lb = zeros(nassets, 1);
 
 % Compute and write out our optimal portfolio weights.
 % Aeq * x = beq
-w_opt = fmincon(f, w_0, [], [], Aeq, beq, noshort, []);
+w_opt = fmincon(f, w_0, [], [], Aeq, beq, lb, []);
 
 fid = fopen('generated_weights.tex', 'w');
 
