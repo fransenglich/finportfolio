@@ -80,9 +80,8 @@ fclose(fid);
 %%
 % Draw the MV frontier.
 
-% mu_bar = (0 : 0.001 : 0.025)'; % TODO Why this constant?
-mu_bar = (0 : 0.1 : 8)';
-%mu_bar = (0:0.001:0.025)';
+% This is the scale of the Y-axis.
+mu_bar = (0 : 0.1 : round(max(mu) * 1.2))';
 
 % Pre-define a matrix for the weights.
 w_MV = zeros(size(mu_bar, 1), nassets);
