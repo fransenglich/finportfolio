@@ -1,15 +1,28 @@
 % TODO:
 % * Fix plotting of optimal portfolio.
 % * Document that mean/variance is historical and how much.
-% * Discuss that MVE is outperformed by simple weights. Reference to Adam.
 % * Make it solid. Understand and check it.
 
 \documentclass[a4paper]{article}
 
+\usepackage[utf8]{inputenc}
+
+\usepackage{csquotes}
+
+\usepackage[
+    backend=biber,
+    style=authoryear-icomp,
+    natbib=true,
+    url=false,
+    doi=true,
+    eprint=false
+]{biblatex}
+
+\addbibresource{references.bib}
+
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{amsmath}
-\usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[bookmarks=true]{hyperref}
 \usepackage{color}
@@ -177,9 +190,11 @@ The optimal weights of the assets in the portfolio are found in table \ref{table
     \end{center}
 \end{table}
 
-
+However, \citet{naive_div} concludes that naive diversification outperforms the mean-variance based.
 
 \section{Remaining Questions}
+
+\printbibliography
 
 \appendix
 
