@@ -45,15 +45,14 @@ end
 
 %% Basic paramaters.
 mu = mean(ret)';
-sigma = std(ret)';
+sd = std(ret)';
 correl = corr(ret);
 
 % Covariance of returns.
-Sigma = diag(sigma) * correl * diag(sigma);
+Covar = diag(sd) * correl * diag(sd);
 
 %% Compute the optimal weights through maximisation.
-
-f = @(x) sqrt(x' * Sigma * x) * 100;
+f = @(x) sqrt(x' * Covar * x) * 100;
 
 % Our starting values for fmincon(). It is the assets equally weighted.
 w_0 = repmat(1 / nassets, nassets, 1);
@@ -100,7 +99,7 @@ for i = 1 : size(mu_bar, 1)
     w_MV(i, :) = w_opt_cand';
 
     % Saving the corresponding S.D.
-    sigma_MV(i) = sqrt(w_opt_cand' * Sigma * w_opt_cand);
+    sigma_MV(i) = sqrt(w_opt_cand' * Covar * w_opt_cand);
 end
 
 figure;
@@ -114,7 +113,7 @@ ylim([0, max(mu_bar)]);
 hold all;
 
 % The original portfolios.
-plot(sigma, mu, 'ob');
+plot(sd, mu, 'ob');
 
 
 xlabel('Standard deviation');
@@ -124,11 +123,11 @@ ylabel('Mean');
 % Note, risk-free is irrelevant in our case, so the equations are adapted
 % accordingly.
 
-w_tilde = inv(Sigma) * mu;
+w_tilde = inv(Covar) * mu;
 w_opt = w_tilde / (w_tilde' * ones(nassets, 1));
 
 opt_mu = w_opt' * mu;
-opt_sigma = w_opt' * sigma;
+opt_sigma = w_opt' * sd;
 
 plot(opt_sigma, opt_mu, '+');
 
