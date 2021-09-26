@@ -83,8 +83,7 @@ fclose(fid);
 
 %% Draw the MV frontier.
 
-% This is the scale of the Y-axis.
-mu_bar = (0 : 0.1 : round(max(mu) * 1.2))';
+mu_bar = (0 : 0.1 : round(max(mu) * 1.2))'; % TODO right?
 
 % Pre-define a matrix for the weights.
 w_MV = zeros(size(mu_bar, 1), nassets);
@@ -109,15 +108,24 @@ figure;
 % The MV frontier.
 plot(sigma_MV, mu_bar);
 
+xlim([0, max(sigma_MV)]);
+ylim([0, max(mu_bar)]);
+
 hold all;
 
 % The original portfolios.
 plot(sigma, mu, 'ob');
 
+
 xlabel('Standard deviation');
 ylabel('Mean');
 
 %% Add the optimal portfolio to the plot.
+% Note, risk-free is irrelevant in our case, so the equations are adapted
+% accordingly.
+
+w_tilde = inv(Sigma) * mu;
+w_opt = w_tilde / (w_tilde' * ones(nassets, 1));
 
 opt_mu = w_opt' * mu;
 opt_sigma = w_opt' * sigma;
