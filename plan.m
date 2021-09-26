@@ -33,16 +33,6 @@ for i = 1:nassets
     ret = cat(2, ret, new);
 end
 
-%% ------------- FOREIGN ----------------------------
-%load data_Matlab1          %load data
-
-%Pick a subperiod and a subset of the portfolios
-%index_date=date>=198001 & date<=201512;
-%index_portfolio=[3,20,2,14,17];
-%ret=ret(index_date,index_portfolio);
-%mktret=mktret(index_date);
-% -------------------------------------------------------
-
 %% Basic paramaters.
 mu = mean(ret)';
 sd = std(ret)';
