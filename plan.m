@@ -9,6 +9,12 @@ nassets = 5; % = size(mu, 1);
 % Expected returns.
 ers = [2, 5, 3, 6, 7];
 
+asset_names = string(1:nassets);
+
+for i = 1:nassets
+    asset_names(i) = strcat("Asset ", asset_names(i));
+end
+
 % 3 years of daily observations.
 n_obs = 30 * 12 * 3;
 
@@ -68,7 +74,7 @@ fid = fopen('generated_weights.tex', 'w');
 for i = 1:size(w_opt, 1)
     fprintf(fid,                    ...
             '%s & %f & %g \\\\\n',  ...
-            int2str(i),             ...
+            asset_names(i),         ...
             w_opt(i),               ...
             round(w_opt(i) * 100, 0));
 end
