@@ -120,6 +120,13 @@ plot(opt_sigma, opt_mu, '+');
 
 saveas(gcf, "generated_mv_frontier.eps", 'epsc');
 
+%% Compute & write out SR constant.
+opt_SR = opt_mu / sqrt(opt_sigma);
+
+fid = fopen('generated_constants.tex', 'w');
+fprintf(fid, '\\def\\optSR{%g}\n', round(opt_SR, 2));
+fclose(fid);
+
 %% Unused stuff.
 
 % Swedish risk-free rate. Fetched 04-09-2021 from
@@ -138,7 +145,7 @@ r_p = 0;
 sd_p = 0;
 
 % Tangency portfolio (its weights).
-W_T = [];
+%W_T = [];
 
 % Sharpe ratio of portfolio.
 % QF L2S30.
